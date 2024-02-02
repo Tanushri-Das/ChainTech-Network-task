@@ -41,11 +41,9 @@ const SignUp = () => {
 
       const allUsers = JSON.parse(localStorage.getItem("allUsers")) || [];
 
-      // Find the index of the user with the matching email
       const userIndex = allUsers.findIndex((user) => user.email === data.email);
 
       if (userIndex !== -1) {
-        // If the user exists, update the data
         allUsers[userIndex] = {
           ...allUsers[userIndex],
           name: data.name,
@@ -55,7 +53,6 @@ const SignUp = () => {
           gender: data.gender,
         };
       } else {
-        // If the user doesn't exist, add a new user
         allUsers.push({
           name: data.name,
           email: data.email,
@@ -103,7 +100,7 @@ const SignUp = () => {
           >
             <h1 className="text-center fs-2 mb-4 fw-bold">Sign Up</h1>
             <div className="row mb-1">
-              <div className="col-12 col-lg-6">
+              <div className="col-12 col-lg-6 mb-1 mb-lg-0">
                 <label className="fs-5 fw-semibold mb-1">Name</label>
                 <input
                   type="text"
@@ -137,7 +134,7 @@ const SignUp = () => {
               </div>
             </div>
             <div className="row mb-1">
-              <div className="col-12 col-lg-6">
+              <div className="col-12 col-lg-6 mb-1 mb-lg-0">
                 <label className="fs-5 fw-semibold mb-1">Phone</label>
                 <input
                   type="number"
@@ -173,7 +170,7 @@ const SignUp = () => {
               </div>
             </div>
             <div className="row mb-1">
-              <div className="col-12 col-lg-6">
+              <div className="col-12 col-lg-6 mb-1 mb-lg-0">
                 <label className="fs-5 fw-semibold mb-1">Age</label>
                 <input
                   type="text"
@@ -195,7 +192,7 @@ const SignUp = () => {
                     required: "Please select a gender",
                   })}
                   className="form-input text-lg"
-                  defaultValue="" // Set the default value to an empty string
+                  defaultValue=""
                 >
                   <option value="" disabled>
                     Pick One
@@ -212,7 +209,7 @@ const SignUp = () => {
             </div>
 
             <div className="row">
-              <div className="col-12 col-lg-6">
+              <div className="col-12 col-lg-6 mb-1 mb-lg-0">
                 <label className="fs-5 fw-semibold mb-1">Password</label>
                 <div className="secrect-pass">
                   <input

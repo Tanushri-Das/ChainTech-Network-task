@@ -42,28 +42,28 @@ const Header = () => {
             isMenuOpen ? "show" : ""
           }`}
         >
-          <ul className="navbar-nav">
+          <ul className="navbar-nav d-flex justify-content-center align-items-center">
             <li className="nav-item">
               <Link
                 to="/"
-                className={`nav-link fs-5 ${
+                className={`nav-link fs-4 ${
                   location.pathname === "/" ? "active" : ""
                 }`}
                 onClick={() => setIsMenuOpen(false)} // Close menu on Link click
               >
-                {location.pathname === "/" ? <strong>Home</strong> : "Home"}
+                {location.pathname === "/" ? <strong className="fs-4">Home</strong> : "Home"}
               </Link>
             </li>
             <li className="nav-item">
               <Link
                 to="/userinfo"
-                className={`nav-link fs-5 ${
+                className={`nav-link fs-4 ${
                   location.pathname === "/userinfo" ? "active" : ""
                 }`}
                 onClick={() => setIsMenuOpen(false)} // Close menu on Link click
               >
                 {location.pathname === "/userinfo" ? (
-                  <strong>Userinfo</strong>
+                  <strong className="fs-4">Userinfo</strong>
                 ) : (
                   "Userinfo"
                 )}

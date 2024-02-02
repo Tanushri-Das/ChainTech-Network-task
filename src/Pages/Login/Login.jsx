@@ -45,10 +45,7 @@ const Login = () => {
         navigate(from, { replace: true });
       })
       .catch((error) => {
-        // Handle Firebase authentication errors
         console.error("Firebase authentication error:", error);
-
-        // Display a user-friendly error message
         Swal.fire({
           title: "Authentication Failed",
           text: "Invalid email or password. Please check your credentials and try again.",
