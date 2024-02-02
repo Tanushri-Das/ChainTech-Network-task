@@ -1,0 +1,28 @@
+.form-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  width: 100%;
+  color: #333;
+  background-color: white;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form {
+  border: 1px solid #ababab;
+  background: rgba(255, 255, 255, 0.2);
+}
+.secrect-pass {
+  position: relative;
+}
+
+.show-pass {
+  position: absolute;
+  right: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.register-btn {
+  font-size: 18px;
+}
