@@ -56,25 +56,26 @@ const UserInformation = () => {
 
   return (
     <div className="container my-5">
+       <h2 className='mb-4 text-center'>Personal Information</h2>
       <Table striped bordered hover responsive>
         <thead>
           <tr>
-            <th className="text-center">Name</th>
-            <th className="text-center">Phone</th>
-            <th className="text-center">Profession</th>
-            <th className="text-center">Gender</th>
-            <th className="text-center">Age</th>
-            <th className="text-center">Action</th>
+            <th className="text-center fs-5">Name</th>
+            <th className="text-center fs-5">Phone</th>
+            <th className="text-center fs-5">Profession</th>
+            <th className="text-center fs-5">Gender</th>
+            <th className="text-center fs-5">Age</th>
+            <th className="text-center fs-5">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td className="text-center">{userInfo.name}</td>
-            <td className="text-center">{userInfo.phone}</td>
-            <td className="text-center">{userInfo.profession}</td>
-            <td className="text-center">{userInfo.gender}</td>
-            <td className="text-center">{userInfo.age}</td>
-            <td className="text-center">
+            <td className="text-center fw-semibold data">{userInfo.name}</td>
+            <td className="text-center fw-semibold data">{userInfo.phone}</td>
+            <td className="text-center fw-semibold data">{userInfo.profession}</td>
+            <td className="text-center fw-semibold data">{userInfo.gender}</td>
+            <td className="text-center fw-semibold data">{userInfo.age}</td>
+            <td className="text-center fw-semibold data">
               <BsPencilSquare className="pencil" onClick={openModal} />
             </td>
           </tr>
