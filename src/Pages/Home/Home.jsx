@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider'
+import React from 'react'
 
 const Home = () => {
 

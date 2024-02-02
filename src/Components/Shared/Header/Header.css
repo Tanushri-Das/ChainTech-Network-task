@@ -1,0 +1,36 @@
+.dream-cse-link {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+}
+
+.white-navlinks a {
+  color: white !important;
+}
+
+.black-navlinks a {
+  color: black !important;
+}
+.white-navlinks a,
+.white-brand {
+  color: white !important;
+}
+
+.black-navlinks a,
+.black-brand {
+  color: black !important;
+}
+.login {
+  text-decoration: none;
+}
+.white-navlinks .fs-5 {
+  color: white !important;
+}
+
+.black-navlinks .fs-5 {
+  color: black !important;
+}

@@ -1,43 +1,75 @@
-import React, { useContext } from "react";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
+import { Button } from "react-bootstrap";
 
 const Header = () => {
+  const location = useLocation();
   const { user, logOut } = useContext(AuthContext);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   const handleLogout = () => {
     logOut()
       .then(() => {})
       .catch((error) => console.error(error));
   };
 
+  // Close the menu when the route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
   return (
-    <div>
-      <nav className="navbar bg-light">
-        <div className="container d-flex justify-content-between align-items-center">
-          <div className="d-flex align-items-center">
-            <a className="navbar-brand fs-3 fw-bold">Users</a>
-          </div>
-          <div className="d-flex align-items-center">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item d-flex">
-                <Link
-                  to="/"
-                  className="nav-link active fs-5 fw-semibold"
-                  aria-current="page"
-                >
-                  Home
-                </Link>
-                <Link
-                  to="/userinfo"
-                  className="nav-link active fs-5 fw-semibold ms-3"
-                  aria-current="page"
-                >
-                  UseInfo
-                </Link>
-              </li>
-            </ul>
-            <div className="d-flex align-items-center ms-3">
+    <nav className="navbar navbar-expand-lg bg-white shadow-sm py-2">
+      <div className="container">
+        <Link to="/" className="navbar-brand fs-2 fw-semibold">
+          UserEase
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          onClick={handleMenuToggle}
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div
+          className={`collapse navbar-collapse justify-content-end ${
+            isMenuOpen ? "show" : ""
+          }`}
+        >
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link
+                to="/"
+                className={`nav-link fs-5 ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
+                onClick={() => setIsMenuOpen(false)} // Close menu on Link click
+              >
+                {location.pathname === "/" ? <strong>Home</strong> : "Home"}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/userinfo"
+                className={`nav-link fs-5 ${
+                  location.pathname === "/userinfo" ? "active" : ""
+                }`}
+                onClick={() => setIsMenuOpen(false)} // Close menu on Link click
+              >
+                {location.pathname === "/userinfo" ? (
+                  <strong>Userinfo</strong>
+                ) : (
+                  "Userinfo"
+                )}
+              </Link>
+            </li>
+            <li className="nav-item my-3 my-md-0 ms-0 ms-md-2">
               {user ? (
                 <>
                   <Button
@@ -53,18 +85,19 @@ const Header = () => {
                     <Button
                       className="btn btn-success fs-5 fw-semibold"
                       type="submit"
+                      onClick={() => setIsMenuOpen(false)} // Close menu on Link click
                     >
                       Login
                     </Button>
                   </Link>
                 </>
               )}
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
-};
+}
 
 export default Header;
