@@ -101,7 +101,7 @@ const SignUp = () => {
             className="form p-4 rounded-3"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <h1 className="text-center fs-2 mb-3 fw-bold">Sign Up</h1>
+            <h1 className="text-center fs-2 mb-4 fw-bold">Sign Up</h1>
             <div className="row mb-1">
               <div className="col-12 col-lg-6">
                 <label className="fs-5 fw-semibold mb-1">Name</label>
@@ -293,7 +293,7 @@ const SignUp = () => {
               </Button>
             </div>
             <p className="text-center fs-5 fw-semibold mt-3">
-              Already have an account?
+              Already have an account ?
               <Link to="/login" className="text-decoration-none ms-1">
                 Login
               </Link>

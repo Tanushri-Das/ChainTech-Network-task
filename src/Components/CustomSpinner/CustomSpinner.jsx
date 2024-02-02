@@ -3,7 +3,7 @@ import './CustomSpinner.css'
 
 const CustomSpinner = () => {
   return (
-    <div className="container">
+    <div className="container d-flex justify-content-center align-items-center mt-5">
       <div className="spinner"></div>
     </div>
   );

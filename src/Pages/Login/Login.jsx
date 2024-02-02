@@ -59,7 +59,7 @@ const Login = () => {
       <div className="row">
         <div className="col-12 col-md-8 col-lg-6 mx-auto">
           <form onSubmit={handleLogin} className="form p-4 rounded-3">
-            <h1 className="text-black text-center text-3xl mb-6 font-bold">
+            <h1 className="text-black text-center text-3xl mb-4 font-bold">
               Login
             </h1>
             <div className="mb-1">

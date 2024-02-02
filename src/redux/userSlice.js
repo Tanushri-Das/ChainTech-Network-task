@@ -4,6 +4,9 @@ const initialState = {
   name: "",
   email: "",
   phone: "",
+  profession: "",
+  age: "",
+  gender: "",
 };
 
 const userSlice = createSlice({
@@ -25,5 +28,5 @@ const userSlice = createSlice({
 });
 
 export const { setUserInfo } = userSlice.actions;
-export const selectUserInfo = (state) => state.user; // Selector to get user information
+export const selectUserInfo = (state) => state.user;
 export default userSlice.reducer;
