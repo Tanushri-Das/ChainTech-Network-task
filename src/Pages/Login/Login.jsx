@@ -4,8 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux"; // Import useDispatch
-import { setUserInfo } from "../../redux/userSlice"; // Import your action
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "../../redux/userSlice";
 
 const Login = () => {
   const { login } = useAuth();
@@ -13,7 +13,7 @@ const Login = () => {
   const [userEmail, setUserEmail] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch(); // Initialize dispatch from the hook
+  const dispatch = useDispatch();
   const from = location.state?.from?.pathname || "/";
 
   const handleLogin = (e) => {
@@ -21,28 +21,41 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
-    login(email, password).then((result) => {
-      const user = result.user;
-      console.log(user);
 
-      Swal.fire({
-        title: "Good job!",
-        text: "You Login Successfully!",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false,
+    login(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+
+        Swal.fire({
+          title: "Good job!",
+          text: "You Login Successfully!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        const allUsers = JSON.parse(localStorage.getItem("allUsers")) || [];
+        const loginUser = allUsers.find((user) => user.email === userEmail);
+
+        if (loginUser) {
+          dispatch(setUserInfo(loginUser));
+        }
+
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        // Handle Firebase authentication errors
+        console.error("Firebase authentication error:", error);
+
+        // Display a user-friendly error message
+        Swal.fire({
+          title: "Authentication Failed",
+          text: "Invalid email or password. Please check your credentials and try again.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       });
-
-      const allUsers = JSON.parse(localStorage.getItem("allUsers")) || [];
-      const loginUser = allUsers.find((user) => user.email === userEmail);
-
-      if (loginUser) {
-        dispatch(setUserInfo(loginUser));
-      }
-
-      navigate(from, { replace: true });
-    });
   };
 
   const togglePasswordVisibility = () => {
