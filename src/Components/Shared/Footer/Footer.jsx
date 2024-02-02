@@ -65,7 +65,7 @@ import './Footer.css'
 const Footer = () => {
   const date = new Date().getFullYear();
   return (
-    <footer className="bg-light py-4 d-flex justify-content-center align-items-center fixed-bottom">
+    <footer className="bg-light py-4 d-flex justify-content-center align-items-center">
       <div className="container">
         <div className="row justify-content-center align-items-center">
           <div className="col-md-6 text-center text-md-start">

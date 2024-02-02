@@ -69,7 +69,7 @@ const Header = () => {
                 )}
               </Link>
             </li>
-            <li className="nav-item my-3 my-md-0 ms-0 ms-md-2">
+            <li className="nav-item my-3 my-lg-0 ms-0 ms-lg-2">
               {user ? (
                 <>
                   <Button
@@ -98,6 +98,6 @@ const Header = () => {
       </div>
     </nav>
   );
-}
+};
 
 export default Header;

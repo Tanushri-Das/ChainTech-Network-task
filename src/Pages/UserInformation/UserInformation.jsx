@@ -59,16 +59,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUserInfo, setUserInfo } from "../../redux/userSlice";
@@ -132,22 +122,26 @@ const UserInformation = () => {
   }
 
   return (
-    <div className="container mt-5">
+    <div className="container my-5">
       <Table striped bordered hover responsive>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Action</th>
+            <th className="text-center">Name</th>
+            <th className="text-center">Phone</th>
+            <th className="text-center">Profession</th>
+            <th className="text-center">Gender</th>
+            <th className="text-center">Age</th>
+            <th className="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{userInfo.name}</td>
-            <td>{userInfo.email}</td>
-            <td>{userInfo.phone}</td>
-            <td>
+            <td className="text-center">{userInfo.name}</td>
+            <td className="text-center">{userInfo.phone}</td>
+            <td className="text-center">{userInfo.profession}</td>
+            <td className="text-center">{userInfo.gender}</td>
+            <td className="text-center">{userInfo.age}</td>
+            <td className="text-center">
               <BsPencilSquare className="pencil" onClick={openModal} />
             </td>
           </tr>

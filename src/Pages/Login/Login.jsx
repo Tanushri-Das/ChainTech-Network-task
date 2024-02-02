@@ -55,53 +55,63 @@ const Login = () => {
   };
 
   return (
-    <div className="w-50 mx-auto my-5">
-      <form onSubmit={handleLogin} className="form p-4 rounded-3">
-        <h1 className="text-black text-center text-3xl mb-6 font-bold">
-          Login
-        </h1>
-        <div className="mb-1">
-          <label className="fs-5 fw-semibold mb-1">Email</label>
-          <input
-            onBlur={handleEmailBlur}
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="form-input"
-          />
-        </div>
-        <div className="mb-3">
-          <div className="fs-5 fw-semibold mb-1">
-            <label className="block text-black text-[16px] font-semibold">
-              Password
-            </label>
-          </div>
+    <div className="container my-5">
+      <div className="row">
+        <div className="col-12 col-md-8 col-lg-6 mx-auto">
+          <form onSubmit={handleLogin} className="form p-4 rounded-3">
+            <h1 className="text-black text-center text-3xl mb-6 font-bold">
+              Login
+            </h1>
+            <div className="mb-1">
+              <label className="fs-5 fw-semibold mb-1">Email</label>
+              <input
+                onBlur={handleEmailBlur}
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="form-input"
+              />
+            </div>
+            <div className="mb-3">
+              <div className="fs-5 fw-semibold mb-1">
+                <label className="block text-black text-[16px] font-semibold">
+                  Password
+                </label>
+              </div>
 
-          <div className="secrect-pass">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Password"
-              className="form-input w-full"
-            />
+              <div className="secrect-pass">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  className="form-input w-full"
+                />
 
-            <span className="show-pass me-1" onClick={togglePasswordVisibility}>
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
-          </div>
+                <span
+                  className="show-pass me-1"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+            </div>
+            <div className="d-flex justify-content-center mt-4">
+              <Button
+                type="submit"
+                className="fw-semibold text-white register-btn"
+              >
+                Login
+              </Button>
+            </div>
+            <p className="text-center fs-5 fw-semibold mt-3">
+              Don’t have an account ?
+              <Link to="/signup" className="text-decoration-none ms-1">
+                Create an account
+              </Link>
+            </p>
+          </form>
         </div>
-        <div className="d-flex justify-content-center mt-4">
-          <Button type="submit" className="fw-semibold text-white register-btn">
-            Login
-          </Button>
-        </div>
-        <p className="text-center fs-5 fw-semibold mt-3">
-          Don’t have an account ?
-          <Link to="/signup" className="text-decoration-none ms-1">
-            Create an account
-          </Link>
-        </p>
-      </form>
+      </div>
     </div>
   );
 };
