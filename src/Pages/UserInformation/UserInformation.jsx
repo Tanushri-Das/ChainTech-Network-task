@@ -1,14 +1,14 @@
-// UserInformation.js
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "../../redux/userSlice";
 import Table from "react-bootstrap/Table";
 import { BsPencilSquare } from "react-icons/bs";
-import UserInfoModal from "./UserInfoModal"; // Import the modal component
-import './UserInformation.css'
+import UserInfoModal from "./UserInfoModal";
+import "./UserInformation.css";
 
 const UserInformation = () => {
   const userInfo = useSelector(selectUserInfo);
+  console.log(userInfo)
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -42,9 +42,7 @@ const UserInformation = () => {
         </tbody>
       </Table>
 
-      {showModal && (
-        <UserInfoModal userInfo={userInfo} onHide={closeModal} />
-      )}
+      {showModal && <UserInfoModal userInfo={userInfo} onHide={closeModal} />}
     </div>
   );
 };
