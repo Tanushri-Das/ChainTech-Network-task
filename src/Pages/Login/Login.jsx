@@ -87,7 +87,7 @@ const Login = () => {
         </div>
         <p className="text-center fs-5 fw-semibold mt-3">
           Don’t have an account ?
-          <Link to="/login" className="text-decoration-none ms-1">
+          <Link to="/signup" className="text-decoration-none ms-1">
             Create an account
           </Link>
         </p>

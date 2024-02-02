@@ -6,6 +6,8 @@ import "./SignUp.css";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "../../redux/userSlice";
 
 const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
 const SignUp = () => {
@@ -18,6 +20,7 @@ const SignUp = () => {
     reset,
   } = useForm();
   const navigate = useNavigate();
+  const dispatch=useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const togglePasswordVisibility = () => {
@@ -61,8 +64,10 @@ const SignUp = () => {
                   name: data.name,
                   email: data.email,
                   photo: imgURL,
+                  phone: data.phone
                 };
                 console.log(saveUser);
+                dispatch(setUserInfo(saveUser));
                 reset();
                 Swal.fire({
                   title: "Good job!",

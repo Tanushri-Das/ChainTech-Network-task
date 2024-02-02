@@ -1,14 +1,20 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider'
+import React from "react";
+import { useSelector } from "react-redux";
+import { selectUserInfo } from "../../redux/userSlice";
 
 const UserInformation = () => {
-    const {user}=useContext(AuthContext)
+  const userInfo = useSelector(selectUserInfo);
+  console.log(userInfo);
   return (
     <div>
-        <h4>{user.displayName}</h4>
-        <h4>{user.email}</h4>
+      <div>
+        <h2>{userInfo.name}</h2>
+        <h2>{userInfo.email}</h2>
+        <h2>{userInfo.phone}</h2>
+        <img src={userInfo.photo} alt="" />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserInformation
+export default UserInformation;
