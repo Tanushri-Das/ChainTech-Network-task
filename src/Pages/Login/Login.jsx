@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux"; // Import useDispatch
+import { setUserInfo } from "../../redux/userSlice"; // Import your action
 
 const Login = () => {
   const { login } = useAuth();
@@ -11,6 +13,7 @@ const Login = () => {
   const [userEmail, setUserEmail] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // Initialize dispatch from the hook
   const from = location.state?.from?.pathname || "/";
 
   const handleLogin = (e) => {
@@ -30,6 +33,13 @@ const Login = () => {
         timer: 1500,
         showConfirmButton: false,
       });
+
+      const allUsers = JSON.parse(localStorage.getItem("allUsers")) || [];
+      const loginUser = allUsers.find((user) => user.email === userEmail);
+
+      if (loginUser) {
+        dispatch(setUserInfo(loginUser));
+      }
 
       navigate(from, { replace: true });
     });

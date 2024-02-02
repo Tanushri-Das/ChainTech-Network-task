@@ -1,18 +1,50 @@
-import React from "react";
+// UserInformation.js
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "../../redux/userSlice";
+import Table from "react-bootstrap/Table";
+import { BsPencilSquare } from "react-icons/bs";
+import UserInfoModal from "./UserInfoModal"; // Import the modal component
+import './UserInformation.css'
 
 const UserInformation = () => {
   const userInfo = useSelector(selectUserInfo);
-  console.log(userInfo);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
-    <div>
-      <div>
-        <h2>{userInfo.name}</h2>
-        <h2>{userInfo.email}</h2>
-        <h2>{userInfo.phone}</h2>
-        <img src={userInfo.photo} alt="" />
-      </div>
+    <div className="container mt-5">
+      <Table striped bordered hover responsive>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{userInfo.name}</td>
+            <td>{userInfo.email}</td>
+            <td>{userInfo.phone}</td>
+            <td>
+              <BsPencilSquare className="pencil" onClick={openModal} />
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+
+      {showModal && (
+        <UserInfoModal userInfo={userInfo} onHide={closeModal} />
+      )}
     </div>
   );
 };

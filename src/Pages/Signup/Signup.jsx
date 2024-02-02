@@ -9,10 +9,8 @@ import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../../redux/userSlice";
 
-const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
 const SignUp = () => {
-  const { createUser, updateUserProfile } = useAuth();
-  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
+  const { createUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -20,7 +18,7 @@ const SignUp = () => {
     reset,
   } = useForm();
   const navigate = useNavigate();
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const togglePasswordVisibility = () => {
@@ -30,62 +28,100 @@ const SignUp = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-
   const onSubmit = (data) => {
-    const formData = new FormData();
-    formData.append("image", data.image[0]);
-    fetch(img_hosting_url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((imgResponse) => {
-        if (imgResponse.success) {
-          const imgURL = imgResponse.data.display_url;
-          // const { name, price, recipe, category } = data;
-          if (data.password !== data.confirmPassword) {
-            // Passwords do not match, set passwordsMatch to false
-            setPasswordsMatch(false);
-            return;
-          }
+    if (data.password !== data.confirmPassword) {
+      setPasswordsMatch(false);
+      return;
+    }
 
-          // Passwords match, proceed with form submission.
-          setPasswordsMatch(true);
+    setPasswordsMatch(true);
+    createUser(data.email, data.password).then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
 
-          console.log(data);
-          createUser(data.email, data.password).then((result) => {
-            const loggedUser = result.user;
-            console.log(loggedUser);
-            // updateUserProfile(data.name, data.photoUrl)
-            updateUserProfile(data.name, imgURL)
-              .then(() => {
-                // console.log("user profile info updated");
-                const saveUser = {
-                  name: data.name,
-                  email: data.email,
-                  photo: imgURL,
-                  phone: data.phone
-                };
-                console.log(saveUser);
-                dispatch(setUserInfo(saveUser));
-                reset();
-                Swal.fire({
-                  title: "Good job!",
-                  text: "Congratulations! Sign Up Successfully!",
-                  icon: "success",
-                  timer: 1500, // Close after 1500 milliseconds (1.5 seconds)
-                  showConfirmButton: false, // Hide the "OK" button
-                });
+      const allUsers = JSON.parse(localStorage.getItem("allUsers")) || [];
 
-                navigate("/userinfo");
-              })
-              .catch((error) => console.error(error));
-          });
-        }
+      // Find the index of the user with the matching email
+      const userIndex = allUsers.findIndex((user) => user.email === data.email);
+
+      if (userIndex !== -1) {
+        // If the user exists, update the data
+        allUsers[userIndex] = {
+          ...allUsers[userIndex],
+          name: data.name,
+          phone: data.phone,
+        };
+      } else {
+        // If the user doesn't exist, add a new user
+        allUsers.push({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+        });
+      }
+
+      localStorage.setItem("allUsers", JSON.stringify(allUsers));
+
+      dispatch(
+        setUserInfo({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+        })
+      );
+
+      reset();
+
+      Swal.fire({
+        title: "Good job!",
+        text: "Congratulations! Sign Up Successfully!",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
       });
 
-    console.log(data);
+      navigate("/userinfo");
+    });
   };
+
+  // const onSubmit = (data) => {
+  //   if (data.password !== data.confirmPassword) {
+  //     // Passwords do not match, set passwordsMatch to false
+  //     setPasswordsMatch(false);
+  //     return;
+  //   }
+
+  //   // Passwords match, proceed with form submission.
+  //   setPasswordsMatch(true);
+  //   createUser(data.email, data.password).then((result) => {
+  //     const loggedUser = result.user;
+  //     console.log(loggedUser);
+  //   });
+
+  //   const saveUser = {
+  //     name: data.name,
+  //     email: data.email,
+  //     phone: data.phone,
+  //   };
+
+  //   const allUsers = JSON.parse(localStorage.getItem("allUsers")) || [];
+  //   allUsers.push(saveUser);
+
+  //   localStorage.setItem("allUsers", JSON.stringify(allUsers));
+  //   // localStorage.setItem("user", JSON.stringify(saveUser));
+
+  //   dispatch(setUserInfo(saveUser));
+  //   reset();
+  //   Swal.fire({
+  //     title: "Good job!",
+  //     text: "Congratulations! Sign Up Successfully!",
+  //     icon: "success",
+  //     timer: 1500,
+  //     showConfirmButton: false,
+  //   });
+
+  //   navigate("/userinfo");
+  // };
 
   return (
     <div className="w-50 mx-auto my-5">
@@ -137,20 +173,6 @@ const SignUp = () => {
           {errors.name && (
             <span className="text-danger fw-semibold mt-1">
               {errors.name?.message}
-            </span>
-          )}
-        </div>
-        <div className="mb-1">
-          <label className="fs-5 fw-semibold mb-1">Photo Url</label>
-
-          <input
-            type="file"
-            className="form-input"
-            {...register("image", { required: true })}
-          />
-          {errors.photoUrl && (
-            <span className="text-danger fw-semibold mt-1">
-              {errors.photoUrl?.message}
             </span>
           )}
         </div>
